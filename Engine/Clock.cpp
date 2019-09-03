@@ -20,3 +20,18 @@ int Clock::GetTimeCurrent() const
 {
 	return timeCurrent;
 }
+
+int Clock::GetHoursCurrent() const
+{
+	return hoursCurrent;
+}
+
+int Clock::GetMinutesCurrent() const
+{
+	return minutesCurrent;
+}
+
+int Clock::GetSecondsCurrent() const
+{
+	return secondsCurrent;
+}

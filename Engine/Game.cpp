@@ -159,6 +159,14 @@ void Game::ComposeFrame()
 				for (int x = 10 + 12 * hourStep - 10; x < 10 + 12 * hourStep + 10; ++x)
 					gfx.PutPixel(x, y, 255, 255, 255);
 			}
+			int markerPosHour = 10 + clock.GetTimeCurrent() / 60; //marker hour
+			for (int y = hourBarY - 80; y < hourBarY + hourBarHeight + 80; ++y)
+			{
+				for (int x = markerPosHour - 3; x < markerPosHour + 3; ++x)
+				{
+					gfx.PutPixel(x, y, 255, 0, 0);
+				}
+			}
 		}
 		//minutes
 		if (drawMinutes)
@@ -197,6 +205,14 @@ void Game::ComposeFrame()
 				for (int x = 10 + 30 * minuteStep - 10; x < 10 + 30 * minuteStep + 10; ++x)
 					gfx.PutPixel(x, y, 255, 255, 255);
 			}
+			int markerPosMinute = 10 + (clock.GetTimeCurrent() - clock.GetHoursCurrent() * 3600) * 24 / 60; //marker min
+			for (int y = minuteBarY - 80; y < minuteBarY + minuteBarHeight + 80; ++y)
+			{
+				for (int x = markerPosMinute - 3; x < markerPosMinute + 3; ++x)
+				{
+					gfx.PutPixel(x, y, 255, 0, 0);
+				}
+			}
 		}
 		//seconds
 		if (drawSeconds)
@@ -234,6 +250,15 @@ void Game::ComposeFrame()
 			{
 				for (int x = 10 + 30 * secondStep - 10; x < 10 + 30 * secondStep + 10; ++x)
 					gfx.PutPixel(x, y, 255, 255, 255);
+			}
+			int markerPosSecond = 10 + (clock.GetTimeCurrent() - clock.GetHoursCurrent() * 3600 //marker min
+				- clock.GetMinutesCurrent() * 60) * 24;
+			for (int y = secondBarY - 80; y < secondBarY + secondBarHeight + 80; ++y)
+			{
+				for (int x = markerPosSecond - 3; x < markerPosSecond + 3; ++x)
+				{
+					gfx.PutPixel(x, y, 255, 0, 0);
+				}
 			}
 		}
 	}
