@@ -8,6 +8,7 @@ public:
 	void CalculateCurrentTime();
 	void CalculateHourMinSecCurren();
 	int GetTimeCurrent() const;
+	int GetHoursCurrent() const;
 private:
 	int timeCurrent;
 	int hoursCurrent;
