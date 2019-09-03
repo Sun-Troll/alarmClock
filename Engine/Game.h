@@ -44,5 +44,21 @@ private:
 	/********************************/
 	/*  User Variables              */
 	Clock clock;
+	bool drawHours = true;
+	bool pressedKeyHours = false;
+	bool drawMinutes = true;
+	bool pressedKeyMinutes = false;
+	bool drawSeconds = true;
+	bool pressedKeySeconds = false;
+	bool drawAll = true;
+	int hourBarY = 100;
+	int hourBarHeight = 4;
+	int hourStep = 60;
+	int minuteBarY = 300;
+	int minuteBarHeight = 4;
+	int minuteStep = 24;
+	int secondBarY = 500;
+	int secondBarHeight = 4;
+	int secondStep = 24;
 	/********************************/
 };

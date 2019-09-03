@@ -6,7 +6,7 @@ class Clock
 {
 public:
 	void CalculateCurrentTime();
-	double GetCurrentTime() const;
+	int GetTimeCurrent() const;
 private:
-	int currentTime;
+	int timeCurrent;
 };
