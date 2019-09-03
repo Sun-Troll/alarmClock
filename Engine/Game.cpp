@@ -38,6 +38,25 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	if (wnd.kbd.KeyIsPressed('A'))
+	{
+		if (!pressedKeyAll)
+		{
+			if (drawAll == true)
+			{
+				drawAll = false;
+			}
+			else
+			{
+				drawAll = true;
+			}
+		}
+		pressedKeyAll = true;
+	}
+	else
+	{
+		pressedKeyAll = false;
+	}
 	if (wnd.kbd.KeyIsPressed('H'))
 	{
 		if (!pressedKeyHours)
@@ -56,6 +75,44 @@ void Game::UpdateModel()
 	else
 	{
 		pressedKeyHours = false;
+	}
+	if (wnd.kbd.KeyIsPressed('M'))
+	{
+		if (!pressedKeyMinutes)
+		{
+			if (drawMinutes == true)
+			{
+				drawMinutes = false;
+			}
+			else
+			{
+				drawMinutes = true;
+			}
+		}
+		pressedKeyMinutes = true;
+	}
+	else
+	{
+		pressedKeyMinutes = false;
+	}
+	if (wnd.kbd.KeyIsPressed('S'))
+	{
+		if (!pressedKeySeconds)
+		{
+			if (drawSeconds == true)
+			{
+				drawSeconds = false;
+			}
+			else
+			{
+				drawSeconds = true;
+			}
+		}
+		pressedKeySeconds = true;
+	}
+	else
+	{
+		pressedKeySeconds = false;
 	}
 	clock.CalculateCurrentTime();
 }
