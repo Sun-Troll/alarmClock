@@ -115,6 +115,7 @@ void Game::UpdateModel()
 		pressedKeySeconds = false;
 	}
 	clock.CalculateCurrentTime();
+	clock.CalculateHourMinSecCurren();
 }
 
 void Game::ComposeFrame()

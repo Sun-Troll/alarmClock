@@ -9,6 +9,13 @@ void Clock::CalculateCurrentTime()
 	timeCurrent = int(what.count() / 10000000 - daysSinceStart * 86400 + 7200);
 }
 
+void Clock::CalculateHourMinSecCurren()
+{
+	hoursCurrent = timeCurrent / 3600;
+	minutesCurrent = (timeCurrent - hoursCurrent * 3600) / 60;
+	secondsCurrent = timeCurrent - hoursCurrent * 3600 - minutesCurrent * 60;
+}
+
 int Clock::GetTimeCurrent() const
 {
 	return timeCurrent;
