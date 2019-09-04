@@ -47,7 +47,7 @@ private:
 
 	Sound soundAlarm0;
 	bool soundAlarm0Playing = false;
-	static constexpr float soundAlarm0PlayTime = 2.0f;
+	static constexpr float soundAlarm0PlayTime = 60.0f;
 	float soundAlarm0ElapsedTime = 0.0f;
 	Clock clock;
 	bool drawAll = true;
@@ -67,7 +67,7 @@ private:
 	static constexpr int secondBarY = 500;
 	static constexpr int secondBarHeight = 4;
 	static constexpr int secondStep = 24;
-	static constexpr int alarm0Start = 71455;
-	static constexpr int alarm0End = alarm0Start + 20;
+	static constexpr int alarm0Start = 15300;
+	static constexpr int alarm0End = alarm0Start + 3600;
 	/********************************/
 };
