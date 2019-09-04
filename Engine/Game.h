@@ -67,7 +67,7 @@ private:
 	static constexpr int secondBarY = 500;
 	static constexpr int secondBarHeight = 4;
 	static constexpr int secondStep = 24;
-	int alarm0Start = 8795;
-	int alarm0End = alarm0Start + 20;
+	static constexpr int alarm0Start = 71455;
+	static constexpr int alarm0End = alarm0Start + 20;
 	/********************************/
 };

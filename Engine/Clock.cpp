@@ -8,10 +8,10 @@ Clock::Clock()
 
 void Clock::CalculateCurrentTime()
 {
-	auto now = std::chrono::system_clock::now();
-	auto what = now.time_since_epoch();
+	const auto now = std::chrono::system_clock::now();
+	const auto what = now.time_since_epoch();
 	//auto timeSinceY2019M09D03 = what.count() / 10000000 - 1567461601;
-	auto daysSinceStart = (what.count() + 72000000000)/ 864000000000;
+	const auto daysSinceStart = (what.count() + 72000000000)/ 864000000000;
 	timeCurrent = int(what.count() / 10000000 - daysSinceStart * 86400 + 7200);
 }
 
@@ -24,7 +24,7 @@ void Clock::CalculateHourMinSecCurren()
 
 float Clock::TimePassed()
 {
-	auto timeCountLast = timeCountCurrent;
+	const auto timeCountLast = timeCountCurrent;
 	timeCountCurrent = std::chrono::steady_clock::now();
 	std::chrono::duration<float> timeDuration = timeCountCurrent - timeCountLast;
 	return timeDuration.count();
