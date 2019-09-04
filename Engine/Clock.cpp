@@ -1,5 +1,11 @@
 #include "Clock.h"
 
+Clock::Clock()
+	:
+	timeCountCurrent(std::chrono::steady_clock::now())
+{
+}
+
 void Clock::CalculateCurrentTime()
 {
 	auto now = std::chrono::system_clock::now();
@@ -14,6 +20,14 @@ void Clock::CalculateHourMinSecCurren()
 	hoursCurrent = timeCurrent / 3600;
 	minutesCurrent = (timeCurrent - hoursCurrent * 3600) / 60;
 	secondsCurrent = timeCurrent - hoursCurrent * 3600 - minutesCurrent * 60;
+}
+
+float Clock::TimePassed()
+{
+	auto timeCountLast = timeCountCurrent;
+	timeCountCurrent = std::chrono::steady_clock::now();
+	std::chrono::duration<float> timeDuration = timeCountCurrent - timeCountLast;
+	return timeDuration.count();
 }
 
 int Clock::GetTimeCurrent() const

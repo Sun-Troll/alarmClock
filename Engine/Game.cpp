@@ -24,7 +24,9 @@
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
-	gfx( wnd )
+	gfx( wnd ),
+	soundAlarm0(L"Sounds\\alarm0.wav"),
+	clock()
 {
 }
 
@@ -38,6 +40,7 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	float frameTime = clock.TimePassed();
 	if (wnd.kbd.KeyIsPressed('A'))
 	{
 		if (!pressedKeyAll)
@@ -116,6 +119,23 @@ void Game::UpdateModel()
 	}
 	clock.CalculateCurrentTime();
 	clock.CalculateHourMinSecCurren();
+	if (clock.GetTimeCurrent() > alarm0Start && clock.GetTimeCurrent() < alarm0End)
+	{
+		if (!soundAlarm0Playing)
+		{
+			soundAlarm0.Play();
+			soundAlarm0Playing = true;
+		}
+		else
+		{
+			soundAlarm0ElapsedTime += frameTime;
+			if (soundAlarm0ElapsedTime > soundAlarm0PlayTime)
+			{
+				soundAlarm0Playing = false;
+				soundAlarm0ElapsedTime = 0.0f;
+			}
+		}
+	}
 }
 
 void Game::ComposeFrame()

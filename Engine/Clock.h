@@ -5,8 +5,10 @@
 class Clock
 {
 public:
+	Clock();
 	void CalculateCurrentTime();
 	void CalculateHourMinSecCurren();
+	float TimePassed();
 	int GetTimeCurrent() const;
 	int GetHoursCurrent() const;
 	int GetMinutesCurrent() const;
@@ -16,4 +18,5 @@ private:
 	int hoursCurrent;
 	int minutesCurrent;
 	int secondsCurrent;
+	std::chrono::steady_clock::time_point timeCountCurrent;
 };

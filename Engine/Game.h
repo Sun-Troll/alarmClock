@@ -24,6 +24,7 @@
 #include "Mouse.h"
 #include "Graphics.h"
 #include "Clock.h"
+#include "Sound.h"
 
 class Game
 {
@@ -43,6 +44,11 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
+
+	Sound soundAlarm0;
+	bool soundAlarm0Playing = false;
+	static constexpr float soundAlarm0PlayTime = 2.0f;
+	float soundAlarm0ElapsedTime = 0.0f;
 	Clock clock;
 	bool drawAll = true;
 	bool pressedKeyAll = false;
@@ -52,14 +58,16 @@ private:
 	bool pressedKeyMinutes = false;
 	bool drawSeconds = true;
 	bool pressedKeySeconds = false;
-	int hourBarY = 100;
-	int hourBarHeight = 4;
-	int hourStep = 60;
-	int minuteBarY = 300;
-	int minuteBarHeight = 4;
-	int minuteStep = 24;
-	int secondBarY = 500;
-	int secondBarHeight = 4;
-	int secondStep = 24;
+	static constexpr int hourBarY = 100;
+	static constexpr int hourBarHeight = 4;
+	static constexpr int hourStep = 60;
+	static constexpr int minuteBarY = 300;
+	static constexpr int minuteBarHeight = 4;
+	static constexpr int minuteStep = 24;
+	static constexpr int secondBarY = 500;
+	static constexpr int secondBarHeight = 4;
+	static constexpr int secondStep = 24;
+	int alarm0Start = 8795;
+	int alarm0End = alarm0Start + 20;
 	/********************************/
 };
