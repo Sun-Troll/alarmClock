@@ -9,10 +9,11 @@ Clock::Clock()
 void Clock::CalculateCurrentTime()
 {
 	const auto now = std::chrono::system_clock::now();
-	const auto what = now.time_since_epoch();
+	const auto timeSinceEpoch = now.time_since_epoch();
+	const auto timeSinEpTimezoneAdjusted = timeSinceEpoch.count() + timezoneCount;
 	//auto timeSinceY2019M09D03 = what.count() / 10000000 - 1567461601;
-	const auto daysSinceStart = (what.count() + 72000000000)/ 864000000000;
-	timeCurrent = int(what.count() / 10000000 - daysSinceStart * 86400 + 7200);
+	const int daysSinceStart = int(timeSinEpTimezoneAdjusted / 864000000000);
+	timeCurrent = int(timeSinEpTimezoneAdjusted / 10000000 - daysSinceStart * 86400);
 }
 
 void Clock::CalculateHourMinSecCurren()
