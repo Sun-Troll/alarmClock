@@ -14,7 +14,7 @@ public:
 	int GetMinutesCurrent() const;
 	int GetSecondsCurrent() const;
 private:
-	static constexpr int timezone = 2;
+	static constexpr int timezone = 1;
 	static constexpr long long timezoneCount = timezone * 36000000000;
 	int timeCurrent;
 	int hoursCurrent;
