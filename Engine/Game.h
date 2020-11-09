@@ -46,30 +46,13 @@ private:
 	/*  User Variables              */
 
 	Sound soundAlarm0;
-	bool soundAlarm0Playing = false;
-	static constexpr float soundAlarm0PlayTime = 60.0f;
-	float soundAlarm0ElapsedTime = 0.0f;
+	bool soundAlarm0Played = false;
 	Clock clock;
 	Font font;
+	bool setting = true;
 	std::string curTime;
-	bool drawAll = true;
-	bool pressedKeyAll = false;
-	bool drawHours = true;
-	bool pressedKeyHours = false;
-	bool drawMinutes = true;
-	bool pressedKeyMinutes = false;
-	bool drawSeconds = true;
-	bool pressedKeySeconds = false;
-	static constexpr int hourBarY = 100;
-	static constexpr int hourBarHeight = 4;
-	static constexpr int hourStep = 60;
-	static constexpr int minuteBarY = 300;
-	static constexpr int minuteBarHeight = 4;
-	static constexpr int minuteStep = 24;
-	static constexpr int secondBarY = 500;
-	static constexpr int secondBarHeight = 4;
-	static constexpr int secondStep = 24;
-	static constexpr int alarm0Start = 15300;
-	static constexpr int alarm0End = alarm0Start + 3600;
+	std::string alarmTime;
+	std::string remTime;
+	std::string enterTime;
 	/********************************/
 };
