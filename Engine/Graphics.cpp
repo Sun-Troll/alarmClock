@@ -252,6 +252,46 @@ Graphics::~Graphics()
 	if( pImmediateContext ) pImmediateContext->ClearState();
 }
 
+RectI Graphics::GetGameRect()
+{
+	return RectI(0, ScreenWidth, 0, GameHeight);
+}
+
+RectF Graphics::GetGameRectF()
+{
+	return RectF(0.0f, float(ScreenWidth), 0.0f, GameHeightF);
+}
+
+RectI Graphics::GetRektTL()
+{
+	return RectI(0, ScreenWidth / 2, 0, GameHeight / 3);
+}
+
+RectI Graphics::GetRektTR()
+{
+	return RectI(ScreenWidth / 2, ScreenWidth, 0, GameHeight / 3);
+}
+
+RectI Graphics::GetRektML()
+{
+	return RectI(0, ScreenWidth / 2, GameHeight / 3, GameHeight * 2 / 3);
+}
+
+RectI Graphics::GetRektMR()
+{
+	return RectI(ScreenWidth / 2, ScreenWidth, GameHeight / 3, GameHeight * 2 / 3);
+}
+
+RectI Graphics::GetRektBL()
+{
+	return RectI(0, ScreenWidth / 2, GameHeight * 2 / 3, GameHeight);
+}
+
+RectI Graphics::GetRektBR()
+{
+	return RectI(ScreenWidth / 2, ScreenWidth, GameHeight * 2 / 3, GameHeight);
+}
+
 void Graphics::EndFrame()
 {
 	HRESULT hr;
@@ -314,6 +354,168 @@ void Graphics::PutPixel( int x,int y,Color c )
 	assert( y >= 0 );
 	assert( y < int( Graphics::ScreenHeight ) );
 	pSysBuffer[Graphics::ScreenWidth * y + x] = c;
+}
+
+void Graphics::DrawSpriteNonChroma(int xPos, int yPos, const Surface& surf)
+{
+	const int width = surf.GetWidth();
+	const int height = surf.GetHeight();
+	for (int y = 0; y < height; ++y)
+	{
+		for (int x = 0; x < width; ++x)
+		{
+			PutPixel(xPos + x, yPos + y, surf.GetPixel(x, y));
+		}
+	}
+}
+
+void Graphics::DrawHudBar(int xPos, int yPos, int xStop, const Surface& surf)
+{
+	assert(xStop <= surf.GetWidth());
+	const int height = surf.GetHeight();
+	for (int y = 0; y < height; ++y)
+	{
+		for (int x = 0; x < xStop; ++x)
+		{
+			PutPixel(xPos + x, yPos + y, surf.GetPixel(x, y));
+		}
+	}
+}
+
+void Graphics::DrawSprite(int xPos, int yPos, const Surface& surf, Color chroma)
+{
+	const int width = surf.GetWidth();
+	const int height = surf.GetHeight();
+	for (int y = 0; y < height; ++y)
+	{
+		for (int x = 0; x < width; ++x)
+		{
+			const Color c = surf.GetPixel(x, y);
+			if (c != chroma)
+			{
+				PutPixel(xPos + x, yPos + y, surf.GetPixel(x, y));
+			}
+		}
+	}
+}
+
+void Graphics::DrawSprite(int xPos, int yPos, Color substitute, const Surface& surf, Color chroma)
+{
+	const int width = surf.GetWidth();
+	const int height = surf.GetHeight();
+	for (int y = 0; y < height; ++y)
+	{
+		for (int x = 0; x < width; ++x)
+		{
+			const Color c = surf.GetPixel(x, y);
+			if (c != chroma)
+			{
+				PutPixel(xPos + x, yPos + y, substitute);
+			}
+		}
+	}
+}
+
+void Graphics::DrawSprite(int xPos, int yPos, const Surface& surf, const RectI& drawRegion, Color chroma)
+{
+	RectI sRect = surf.GetRect();
+	if (xPos < drawRegion.left)
+	{
+		sRect.left += drawRegion.left - xPos;
+		xPos = drawRegion.left;
+	}
+	else if (sRect.right + xPos > drawRegion.right)
+	{
+		sRect.right -= sRect.right + xPos - drawRegion.right;
+	}
+	if (yPos < drawRegion.top)
+	{
+		sRect.top += drawRegion.top - yPos;
+		yPos = drawRegion.top;
+	}
+	else if (sRect.bottom + yPos > drawRegion.bottom)
+	{
+		sRect.bottom -= sRect.bottom + yPos - drawRegion.bottom;
+	}
+	for (int y = sRect.top; y < sRect.bottom; ++y)
+	{
+		for (int x = sRect.left; x < sRect.right; ++x)
+		{
+			const Color c = surf.GetPixel(x, y);
+			if (c != chroma)
+			{
+				PutPixel(xPos + x - sRect.left, yPos + y - sRect.top, surf.GetPixel(x, y));
+			}
+		}
+	}
+}
+
+void Graphics::DrawSprite(int xPos, int yPos, Color substitute, const Surface& surf, const RectI& drawRegion, Color chroma)
+{
+	RectI sRect = surf.GetRect();
+	if (xPos < drawRegion.left)
+	{
+		sRect.left += drawRegion.left - xPos;
+		xPos = drawRegion.left;
+	}
+	else if (sRect.right + xPos > drawRegion.right)
+	{
+		sRect.right -= sRect.right + xPos - drawRegion.right;
+	}
+	if (yPos < drawRegion.top)
+	{
+		sRect.top += drawRegion.top - yPos;
+		yPos = drawRegion.top;
+	}
+	else if (sRect.bottom + yPos > drawRegion.bottom)
+	{
+		sRect.bottom -= sRect.bottom + yPos - drawRegion.bottom;
+	}
+	for (int y = sRect.top; y < sRect.bottom; ++y)
+	{
+		for (int x = sRect.left; x < sRect.right; ++x)
+		{
+			const Color c = surf.GetPixel(x, y);
+			if (c != chroma)
+			{
+				PutPixel(xPos + x - sRect.left, yPos + y - sRect.top, substitute);
+			}
+		}
+	}
+}
+
+void Graphics::DrawSpriteText(int xPos, int yPos, Color substitute, const Surface& surf,
+	RectI sRect, const RectI& drawRegion, Color chroma)
+{
+	if (xPos < drawRegion.left)
+	{
+		sRect.left += drawRegion.left - xPos;
+		xPos = drawRegion.left;
+	}
+	else if (sRect.right - sRect.left + xPos > drawRegion.right)
+	{
+		sRect.right -= sRect.right - sRect.left + xPos - drawRegion.right;
+	}
+	if (yPos < drawRegion.top)
+	{
+		sRect.top += drawRegion.top - yPos;
+		yPos = drawRegion.top;
+	}
+	else if (sRect.bottom - sRect.top + yPos > drawRegion.bottom)
+	{
+		sRect.bottom -= sRect.bottom - sRect.top + yPos - drawRegion.bottom;
+	}
+	for (int y = sRect.top; y < sRect.bottom; ++y)
+	{
+		for (int x = sRect.left; x < sRect.right; ++x)
+		{
+			const Color c = surf.GetPixel(x, y);
+			if (c != chroma)
+			{
+				PutPixel(xPos + x - sRect.left, yPos + y - sRect.top, substitute);
+			}
+		}
+	}
 }
 
 

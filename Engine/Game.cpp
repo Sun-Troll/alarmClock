@@ -26,7 +26,8 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
 	soundAlarm0(L"Sounds\\alarm0.wav"),
-	clock()
+	clock(),
+	font("Sprites\\asciitext.bmp")
 {
 }
 
@@ -282,4 +283,5 @@ void Game::ComposeFrame()
 			}
 		}
 	}
+	font.DrawText("test", Colors::White, { 0, 0 }, gfx.GetGameRect(), gfx);
 }

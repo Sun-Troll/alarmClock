@@ -24,6 +24,8 @@
 #include <wrl.h>
 #include "ChiliException.h"
 #include "Colors.h"
+#include "Surface.h"
+#include "Rect.h"
 
 class Graphics
 {
@@ -57,6 +59,14 @@ public:
 		PutPixel( x,y,{ unsigned char( r ),unsigned char( g ),unsigned char( b ) } );
 	}
 	void PutPixel( int x,int y,Color c );
+	void DrawSpriteNonChroma(int xPos, int yPos, const Surface& surf);
+	void DrawHudBar(int xPos, int yPos, int xStop, const Surface& surf);
+	void DrawSprite(int xPos, int yPos, const Surface& surf, Color chroma = Colors::White);
+	void DrawSprite(int xPos, int yPos, Color substitute, const Surface& surf, Color chroma = Colors::White);
+	void DrawSprite(int xPos, int yPos, const Surface& surf, const RectI& drawRegion, Color chroma = Colors::White);
+	void DrawSprite(int xPos, int yPos, Color substitute, const Surface& surf, const RectI& drawRegion, Color chroma = Colors::White);
+	void DrawSpriteText(int xPos, int yPos, Color substitute, const Surface& surf,
+		RectI sRect, const RectI& drawRegion, Color chroma = Colors::White);
 	~Graphics();
 private:
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;
@@ -73,6 +83,16 @@ private:
 	D3D11_MAPPED_SUBRESOURCE							mappedSysBufferTexture;
 	Color*                                              pSysBuffer = nullptr;
 public:
-	static constexpr int ScreenWidth = 1460;
-	static constexpr int ScreenHeight = 600;
+	static constexpr int ScreenWidth = 1800;
+	static constexpr int ScreenHeight = 1000;
+	static constexpr int GameHeight = ScreenHeight;
+	static constexpr float GameHeightF = float(GameHeight);
+	static RectI GetGameRect();
+	static RectF GetGameRectF();
+	static RectI GetRektTL();
+	static RectI GetRektTR();
+	static RectI GetRektML();
+	static RectI GetRektMR();
+	static RectI GetRektBL();
+	static RectI GetRektBR();
 };

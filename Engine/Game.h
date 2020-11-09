@@ -22,7 +22,7 @@
 
 #include "Keyboard.h"
 #include "Mouse.h"
-#include "Graphics.h"
+#include "Font.h"
 #include "Clock.h"
 #include "Sound.h"
 
@@ -50,6 +50,8 @@ private:
 	static constexpr float soundAlarm0PlayTime = 60.0f;
 	float soundAlarm0ElapsedTime = 0.0f;
 	Clock clock;
+	Font font;
+	std::string curTime;
 	bool drawAll = true;
 	bool pressedKeyAll = false;
 	bool drawHours = true;
